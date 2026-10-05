@@ -1,0 +1,819 @@
+/* =========================================================
+   TRIVENTS — CINEMATIC ENHANCEMENT LAYER
+   All additions. No overrides of existing core styles.
+   ========================================================= */
+
+/* ─────────────────────────────────────────────────────────
+   ENHANCED SCROLL REVEAL — Multi-direction, stagger-aware
+   ───────────────────────────────────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.34s; }
+
+/* Variant: slide from left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-left.visible { opacity: 1; transform: none; }
+
+/* Variant: scale-in */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-scale.visible { opacity: 1; transform: none; }
+
+/* ─────────────────────────────────────────────────────────
+   HERO — Entrance Animations
+   ───────────────────────────────────────────────────────── */
+
+@keyframes heroTitleIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scaleX(0.96);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleX(0.92);
+    filter: blur(0);
+  }
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroScrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50%       { transform: translateY(6px); opacity: 1; }
+}
+
+.hero-title {
+  animation: heroTitleIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.hero-title-line {
+  display: block;
+}
+
+.hero-title-line:nth-child(2) { animation-delay: 0.08s; }
+.hero-title-line:nth-child(3) { animation-delay: 0.16s; }
+
+.hero-greeting {
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.hero-rule {
+  animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+}
+
+.hero-bottom {
+  animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+}
+
+.hero-scroll {
+  animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+}
+
+.hero-scroll-arrow {
+  display: inline-block;
+  animation: heroScrollBounce 2s ease-in-out infinite;
+  margin-left: 4px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   HERO — Enhanced Orbit
+   ───────────────────────────────────────────────────────── */
+
+@keyframes orbitSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes orbitSpinReverse {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+@keyframes orbitNodePulse {
+  0%, 100% { box-shadow: 0 0 6px 2px rgba(255, 85, 45, 0.8); opacity: 1; }
+  50%       { box-shadow: 0 0 16px 4px rgba(255, 85, 45, 0.4); opacity: 0.6; }
+}
+
+.hero-orbit-ring--outer {
+  animation: orbitSpin 22s linear infinite;
+}
+
+.hero-orbit-ring--inner {
+  animation: orbitSpinReverse 14s linear infinite;
+}
+
+.hero-orbit-node {
+  animation: orbitNodePulse 3s ease-in-out infinite;
+}
+
+.hero-orbit-node--a { animation-delay: 0s; }
+.hero-orbit-node--b { animation-delay: 1.5s; }
+.hero-orbit-node--c { animation-delay: 0.8s; }
+
+@keyframes coreHeartbeat {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+  40%       { transform: translate(-50%, -50%) scale(1.5); opacity: 0.5; }
+  60%       { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+}
+
+.hero-orbit-core {
+  animation: coreHeartbeat 2.8s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────
+   HERO AMBIENT — Additional warm glow pulse
+   ───────────────────────────────────────────────────────── */
+
+@keyframes ambientPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 0.75; transform: scale(1.08); }
+}
+
+.hero-ambient-glow {
+  animation: ambientPulse 6s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────
+   SECTION TRANSITIONS — Cinematic inter-section glow lines
+   ───────────────────────────────────────────────────────── */
+
+.section-separator {
+  position: relative;
+  height: 1px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.section-separator::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 85, 45, 0.15) 20%,
+    rgba(255, 85, 45, 0.35) 50%,
+    rgba(255, 85, 45, 0.15) 80%,
+    transparent 100%
+  );
+}
+
+.section-separator::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 16px 4px rgba(255, 85, 45, 0.6);
+}
+
+/* ─────────────────────────────────────────────────────────
+   WHY US CARDS — 3D Tilt + Scanline
+   ───────────────────────────────────────────────────────── */
+
+.why-us-card {
+  transform-style: preserve-3d;
+  transform: perspective(800px) rotateX(0deg) rotateY(0deg);
+  transition:
+    transform 0.06s linear,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+  will-change: transform;
+  cursor: default;
+}
+
+.why-us-card:hover {
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(255, 85, 45, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Scanline overlay on card hover */
+.why-us-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.018) 0px,
+    rgba(255, 255, 255, 0.018) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.why-us-card:hover::before {
+  opacity: 1;
+}
+
+/* HUD bracket corners */
+.why-us-card::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 85, 45, 0);
+  transition: border-color 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.why-us-card:hover::after {
+  border-color: rgba(255, 85, 45, 0.15);
+}
+
+/* ─────────────────────────────────────────────────────────
+   ABOUT WW DO CARDS — Enhanced hover
+   ───────────────────────────────────────────────────────── */
+
+.about-wwd-card {
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+  will-change: transform;
+}
+
+.about-wwd-card.hovered {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(255, 85, 45, 0.1);
+}
+
+/* ─────────────────────────────────────────────────────────
+   SECTION PILLS — Shimmer animation
+   ───────────────────────────────────────────────────────── */
+
+@keyframes pillShimmer {
+  from { background-position: -200% center; }
+  to   { background-position: 200% center; }
+}
+
+.section-pill {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.section-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 70%
+  );
+  background-size: 200% auto;
+  animation: pillShimmer 4s linear infinite;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────────────────
+   HIGHLIGHT TEXT — Animated gradient
+   ───────────────────────────────────────────────────────── */
+
+@keyframes highlightFlow {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.highlight {
+  background: linear-gradient(
+    105deg,
+    var(--accent) 0%,
+    rgba(255, 160, 120, 1) 35%,
+    var(--accent) 65%,
+    rgba(255, 120, 80, 1) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: highlightFlow 4s linear infinite;
+}
+
+/* ─────────────────────────────────────────────────────────
+   RIVEN SECTION — HUD scan animation
+   ───────────────────────────────────────────────────────── */
+
+@keyframes rivenScan {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(100%); }
+}
+
+.RIVEN-console-shell {
+  position: relative;
+  overflow: hidden;
+}
+
+.RIVEN-console-shell::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 85, 45, 0.4) 30%,
+    rgba(255, 85, 45, 0.8) 50%,
+    rgba(255, 85, 45, 0.4) 70%,
+    transparent
+  );
+  z-index: 20;
+  pointer-events: none;
+  animation: rivenScan 6s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+/* RIVEN section ambient — enhanced pulsing beacon */
+@keyframes rivenBeaconPulse {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+  50%       { opacity: 0.7; transform: translateX(-50%) scale(1.12); }
+}
+
+.RIVEN-ambient {
+  animation: rivenBeaconPulse 5s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────
+   NAV DOCK — Enhanced glow on active
+   ───────────────────────────────────────────────────────── */
+
+@keyframes dockActivePop {
+  0%   { transform: scale(0.8); opacity: 0; }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.nav-dock-active-dot {
+  animation: dockActivePop 0.3s var(--ease-spring) both;
+}
+
+.nav-dock-item.active .nav-dock-icon-wrap {
+  box-shadow: 0 0 16px 4px rgba(255, 85, 45, 0.4);
+}
+
+/* ─────────────────────────────────────────────────────────
+   PARTICLES — Enhanced with drift animation
+   ───────────────────────────────────────────────────────── */
+
+@keyframes particleDrift {
+  0%   { transform: translate(0, 0) scale(0.8); opacity: 0.3; }
+  33%  { transform: translate(8px, -12px) scale(1.1); opacity: 0.7; }
+  66%  { transform: translate(-6px, -6px) scale(0.95); opacity: 0.5; }
+  100% { transform: translate(0, 0) scale(0.8); opacity: 0.3; }
+}
+
+.particle {
+  animation: particleDrift 8s ease-in-out infinite;
+}
+
+.particle:nth-child(2n)   { animation-duration: 10s; animation-delay: -2s; }
+.particle:nth-child(3n)   { animation-duration: 12s; animation-delay: -5s; }
+.particle:nth-child(4n)   { animation-duration: 9s;  animation-delay: -1s; }
+.particle:nth-child(5n)   { animation-duration: 11s; animation-delay: -3s; }
+.particle:nth-child(7n)   { animation-duration: 14s; animation-delay: -7s; }
+
+/* ─────────────────────────────────────────────────────────
+   FOOTER — Cinematic grid line
+   ───────────────────────────────────────────────────────── */
+
+.footer {
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 85, 45, 0.2) 20%,
+    rgba(255, 85, 45, 0.5) 50%,
+    rgba(255, 85, 45, 0.2) 80%,
+    transparent 100%
+  );
+}
+
+/* ─────────────────────────────────────────────────────────
+   CONTACT CHANNELS — Magnetic hover lift
+   ───────────────────────────────────────────────────────── */
+
+.contact-channel-card {
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease,
+    box-shadow 0.3s ease,
+    background 0.25s ease;
+}
+
+.contact-channel-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(255, 85, 45, 0.1);
+}
+
+/* ─────────────────────────────────────────────────────────
+   ABOUT COLLAB TICKER — Enhanced pill
+   ───────────────────────────────────────────────────────── */
+
+.about-collab-pill {
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.about-collab-pill:hover {
+  background: rgba(255, 85, 45, 0.12);
+  border-color: rgba(255, 85, 45, 0.3);
+}
+
+/* ─────────────────────────────────────────────────────────
+   GLOBAL LINK — Magnetic underline micro-animation
+   ───────────────────────────────────────────────────────── */
+
+.footer-column ul a {
+  position: relative;
+  display: inline-block;
+  transition: color 0.2s ease;
+}
+
+.footer-column ul a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-column ul a:hover::after {
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────────────────────
+   SCROLL PROGRESS — Multi-stop gradient
+   ───────────────────────────────────────────────────────── */
+
+.scroll-progress-bar {
+  background: linear-gradient(
+    90deg,
+    #ff7a5a 0%,
+    #ff552d 40%,
+    #ff8040 80%,
+    #ffba80 100%
+  );
+  box-shadow: 0 0 12px 2px rgba(255, 85, 45, 0.6);
+}
+
+/* ─────────────────────────────────────────────────────────
+   ABOUT STATS — Number glow on count-up
+   ───────────────────────────────────────────────────────── */
+
+.about-stat-value {
+  text-shadow: 0 0 30px rgba(255, 85, 45, 0.4);
+  transition: text-shadow 0.3s ease;
+}
+
+.about-stat-item:hover .about-stat-value {
+  text-shadow: 0 0 50px rgba(255, 85, 45, 0.7), 0 0 20px rgba(255, 85, 45, 0.4);
+}
+
+/* ─────────────────────────────────────────────────────────
+   HERO RULE — Animated pulse line
+   ───────────────────────────────────────────────────────── */
+
+@keyframes rulePulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+.hero-rule-line {
+  animation: rulePulse 3s ease-in-out infinite;
+}
+
+.hero-rule-line:nth-child(3) {
+  animation-delay: 1.5s;
+}
+
+/* ─────────────────────────────────────────────────────────
+   HERO GREETING DOT — Synchronized pulsing beacon
+   ───────────────────────────────────────────────────────── */
+
+@keyframes greetingDotPulse {
+  0%, 100% { box-shadow: 0 0 6px 2px rgba(255, 85, 45, 0.7); transform: scale(1); }
+  50%       { box-shadow: 0 0 14px 5px rgba(255, 85, 45, 0.4); transform: scale(1.3); }
+}
+
+.hero-greeting-dot {
+  animation: greetingDotPulse 2s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────
+   NAV LOGO — Subtle hover shimmer
+   ───────────────────────────────────────────────────────── */
+
+.nav-logo-text {
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.nav-logo:hover .nav-logo-text {
+  color: rgba(255, 255, 255, 1);
+  text-shadow: 0 0 20px rgba(255, 85, 45, 0.4);
+}
+
+/* ─────────────────────────────────────────────────────────
+   METRIC COUNTER CARDS — Entrance pulse
+   ───────────────────────────────────────────────────────── */
+
+@keyframes metricCountUp {
+  from { opacity: 0.2; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.why-us-visual-metric-value {
+  display: inline-block;
+  text-shadow: 0 0 25px rgba(255, 85, 45, 0.5);
+}
+
+/* ─────────────────────────────────────────────────────────
+   WHY US RING — Stronger glow on active
+   ───────────────────────────────────────────────────────── */
+
+@keyframes ringExpand {
+  from { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
+  to   { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+}
+
+.why-us-ring--active {
+  animation: ringExpand 1.6s ease-out infinite;
+}
+
+.why-us-ring--2.why-us-ring--active {
+  animation-delay: 0.4s;
+}
+
+.why-us-ring--3.why-us-ring--active {
+  animation-delay: 0.8s;
+}
+
+/* ─────────────────────────────────────────────────────────
+   CONTACT BUTTON — Neon pulse border animation
+   ───────────────────────────────────────────────────────── */
+
+@keyframes borderTrace {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 85, 45, 0); }
+  50%  { box-shadow: 0 0 20px 4px rgba(255, 85, 45, 0.35); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 85, 45, 0); }
+}
+
+.contact-button {
+  animation: borderTrace 3s ease-in-out infinite;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.contact-button:hover {
+  transform: scale(1.04) translateY(-2px);
+}
+
+/* ─────────────────────────────────────────────────────────
+   ABOUT WW DO ICON SHELL — Animated ring on hover
+   ───────────────────────────────────────────────────────── */
+
+.about-wwd-icon-shell {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.about-wwd-card.hovered .about-wwd-icon-shell {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 0 20px 6px rgba(255, 85, 45, 0.25);
+}
+
+/* ─────────────────────────────────────────────────────────
+   HUD CORNER DECORATIONS — Global utility
+   ───────────────────────────────────────────────────────── */
+
+.hud-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.hud-corner--tl {
+  top: 12px; left: 12px;
+  border-top: 1.5px solid rgba(255, 85, 45, 0.5);
+  border-left: 1.5px solid rgba(255, 85, 45, 0.5);
+}
+
+.hud-corner--tr {
+  top: 12px; right: 12px;
+  border-top: 1.5px solid rgba(255, 85, 45, 0.5);
+  border-right: 1.5px solid rgba(255, 85, 45, 0.5);
+}
+
+.hud-corner--bl {
+  bottom: 12px; left: 12px;
+  border-bottom: 1.5px solid rgba(255, 85, 45, 0.5);
+  border-left: 1.5px solid rgba(255, 85, 45, 0.5);
+}
+
+.hud-corner--br {
+  bottom: 12px; right: 12px;
+  border-bottom: 1.5px solid rgba(255, 85, 45, 0.5);
+  border-right: 1.5px solid rgba(255, 85, 45, 0.5);
+}
+
+/* ─────────────────────────────────────────────────────────
+   MAGNETIC BUTTON EFFECT — Applied to all CTAs
+   ───────────────────────────────────────────────────────── */
+
+.nav-quick-cta,
+.contact-button,
+.about-mini-badge {
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────────────────
+   SECTION TITLE — Letter spacing entrance
+   ───────────────────────────────────────────────────────── */
+
+.section-title {
+  transition: letter-spacing 0.5s ease;
+}
+
+/* ─────────────────────────────────────────────────────────
+   GLOBAL — Smooth background radial heat map on scroll
+   ───────────────────────────────────────────────────────── */
+
+body::after {
+  content: '';
+  position: fixed;
+  top: -30%;
+  left: 30%;
+  width: 60vw;
+  height: 80vh;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 85, 45, 0.03) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: ambientPulse 8s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────
+   LOADER ENHANCEMENT — Cinematic wipe
+   ───────────────────────────────────────────────────────── */
+
+@keyframes loaderLineGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.loader-bar-fill {
+  animation: loaderLineGrow 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow: 0 0 16px 4px rgba(255, 85, 45, 0.5);
+}
+
+/* ─────────────────────────────────────────────────────────
+   ABOUT STORY CARD — Inner glow border
+   ───────────────────────────────────────────────────────── */
+
+.about-story-card {
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.about-story-card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    0 0 30px rgba(255, 85, 45, 0.08);
+}
+
+/* ─────────────────────────────────────────────────────────
+   RIVEN CONSOLE TOPBAR — Active indicator blink
+   ───────────────────────────────────────────────────────── */
+
+@keyframes rivenStatusPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.RIVEN-thinking span {
+  animation-duration: 0.9s !important;
+}
+
+/* ─────────────────────────────────────────────────────────
+   FOOTER SOCIAL BUTTONS — Hover glow
+   ───────────────────────────────────────────────────────── */
+
+.footer-social-round-btn {
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease,
+    border-color 0.2s ease;
+}
+
+.footer-social-round-btn:hover {
+  transform: translateY(-4px) scale(1.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 85, 45, 0.2);
+}
+
+/* ─────────────────────────────────────────────────────────
+   SPECTRAL GHOST — Subtle vignette overlay (keeps depth)
+   ───────────────────────────────────────────────────────── */
+
+.spectral-ghost-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* ─────────────────────────────────────────────────────────
+   MOBILE — Preserve performance
+   ───────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .why-us-card { transform: none !important; }
+
+  .hero-title {
+    animation-duration: 0.8s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
